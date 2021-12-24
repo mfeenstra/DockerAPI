@@ -1,20 +1,19 @@
-require 'json'
-require 'yaml'
+# lib/docker_api.rb
 
-# set the environment DOCKER_REGISTRY, or....
+require 'json'
+
+# set the host environment variable 'DOCKER_REGISTRY', or constant:
 DOCKER_REGISTRY = 'dcr.feenstra.io:5000'
 API = 'v2'
 
 ################################################################################
 # DockerApi - A Ruby interface for the Docker Container Registry.              #
 #   matt.a.feenstra@gmail.com                                                  #
-#   copyright 2022, all rights reserved.                                       #
+#   licensed under GPLv3, copyright 2022, all rights reserved.                 #
 ################################################################################
-#
 # Parameter: Nil or String -> 1 Repo (image) Name
-#
+
 # Methods (DockerApi.new):
-#
 #   tags(repo)
 #   history(repo, tag)
 #   id(repo, tag
@@ -23,8 +22,8 @@ API = 'v2'
 #   digest(repo, tag)
 #   perform -> creates @struct
 #
-# ->perform to create @struct
-# ->dump_struct to print it out
+# -> Use perform to create @struct (
+#  ->  try Dockerdump_struct to print it out
 #
 # Data is transformed like the following (in dockerapi.struct):
 #   @struct = { Image_1_Name =>
@@ -42,10 +41,13 @@ API = 'v2'
 #               ],
 #               ...
 #             }
-#             
-# Reccommend:
-#   - dockerapi.perform + dockerapi.struct.to_yaml
 #
+# Reccommended Usage:
+#   - dockerapi.perform
+#   - dockerapi.struct.to_yaml
+# Or:
+#   - new_data = DockerApi.new.perform
+#   - puts new_data.to_yaml
 ################################################################################
 
 class DockerApi
